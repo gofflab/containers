@@ -69,7 +69,7 @@ IncludeCmd: yes
   apt-get install -y libhdf5-dev hdf5-helpers libmariadb-client-lgpl-dev
   apt-get install -y libudunits2-dev libgdal-dev libgeos-dev libproj-dev
 
-  apt install r-base
+  apt install -y r-base 
 
   R --version
 
