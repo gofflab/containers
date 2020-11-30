@@ -27,7 +27,7 @@ IncludeCmd: yes
         ./astRal.simg R
 
 %setup
-  # for Maryland Advanced Research Computing Center
+  # for Brahma
 
 %apprun R
   exec R "$@"
@@ -69,30 +69,42 @@ IncludeCmd: yes
   apt-get install -y libhdf5-dev hdf5-helpers libmariadb-client-lgpl-dev
   apt-get install -y libudunits2-dev libgdal-dev libgeos-dev libproj-dev
 
-  apt install -y r-base 
+  apt install -y r-base
 
   R --version
 
   # # installing packages from cran
-  # R --slave -e 'install.packages("devtools",repos="https://cran.rstudio.com/")'
-  # R --slave -e 'install.packages("dplyr",repos="https://cran.rstudio.com/")'
-  # R --slave -e 'install.packages("rhdf5",repos="https://cran.rstudio.com/")'
+  R --slave -e 'install.packages("devtools",repos="https://cran.rstudio.com/")'
+  R --slave -e 'install.packages("dplyr",repos="https://cran.rstudio.com/")'
+  R --slave -e 'install.packages("rhdf5",repos="https://cran.rstudio.com/")'
   #
   # # installing from bioc
-  # R --slave -e 'if (!requireNamespace("BiocManager",quietly=TRUE)) install.packages("BiocManager")'
-  # R --slave -e 'BiocManager::install(version = "3.10")'
+  R --slave -e 'if (!requireNamespace("BiocManager",quietly=TRUE)) install.packages("BiocManager")'
+  R --slave -e 'BiocManager::install(version = "3.12")'
   # R --slave -e 'BiocManager::install("biomaRt",ask=FALSE)'
-  #
-  # # install monocle3
-  # R --slave -e 'BiocManager::install(c("BiocGenerics", "DelayedArray", "DelayedMatrixStats",
-  #                      "limma", "S4Vectors", "SingleCellExperiment",
-  #                      "SummarizedExperiment", "batchelor", "Matrix.utils"))'
-  # R --slave -e 'devtools::install_github("cole-trapnell-lab/leidenbase")'
+  R --slave -e 'BiocManager::install(c("SingleCellExperiment",
+                                        "SummarizedExperiment",
+                                        "DelayedArray",
+                                        "DelayedMatrixStats",
+                                        "S4Vectors",
+                                        "rgl",
+                                        "ggplot2",
+                                        "viridis"
+                                        )
+                                        ,ask=FALSE)'
+
+
+  # install astRal dependencies
+  apt-get -y update && apt-get install -y libudunits2-dev libgdal-dev libgeos-dev libproj-dev
+  R --slave -e 'install.packages("sf")'
   # R --slave -e 'devtools::install_github("cole-trapnell-lab/monocle3")'
 
+  # Install astRal from github repo
+  R --slave -e 'devtools::install_github("gofflab/astRal")'
+
   # Setup container file system
-  ## default mount paths (MARCC)
-  mkdir /scratch /data /work-zfs
+  ## default mount paths (Brahma)
+  mkdir /references /data /scratch
 
   ## Custom scripts/workflows go here
   mkdir /scripts
@@ -102,7 +114,7 @@ IncludeCmd: yes
   #mkdir -p /opt/data
 
 %environment
-  #R_VERSION=4.0.0
+  R_VERSION=4.0.0
   export R_VERSION
   R_CONFIG_DIR=/etc/R/
   export R_CONFIG_DIR
