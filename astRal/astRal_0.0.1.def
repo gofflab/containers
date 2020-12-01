@@ -68,7 +68,7 @@ IncludeCmd: yes
   apt-get install -y libssl-dev libxml2-dev libpcre3-dev liblzma-dev libbz2-dev libcurl4-openssl-dev
   apt-get install -y libhdf5-dev hdf5-helpers libmariadb-client-lgpl-dev
   apt-get install -y libudunits2-dev libgdal-dev libgeos-dev libproj-dev
-  apt-get install  -y libftgl2 libcgal-dev libglu1-mesa-dev libglu1-mesa-dev apt-get libx11-dev libfreetype6-dev # for rgl package
+  apt-get install  -y libftgl2 libcgal-dev libglu1-mesa-dev libglu1-mesa-dev libx11-dev libfreetype6-dev # for rgl package
   apt-get install -y libudunits2-dev libgdal-dev libgeos-dev libproj-dev # for sf package
 
   apt-get install -y r-base
