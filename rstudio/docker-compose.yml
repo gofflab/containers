@@ -1,0 +1,14 @@
+services:
+  rstudio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - PASSWORD=${PASSWORD}
+    ports:
+      - "8787:8787"
+    volumes:
+      - /rstudio:/home
+      # https://stackoverflow.com/a/37898591
+      - /home/rstudio
